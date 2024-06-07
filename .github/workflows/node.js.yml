@@ -15,9 +15,9 @@ jobs:
         node-version: [8.x, 10.x, 12.x, 20.x]
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v4
     - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v1
+      uses: actions/setup-node@v3
       with:
         node-version: ${{ matrix.node-version }}
     - name: npm install and test
@@ -26,7 +26,7 @@ jobs:
         npm start
         npm test
         npm run build
-        npm run eject
+#        npm run eject
       env:
         CI: true
 
