@@ -22,9 +22,8 @@ jobs:
         node-version: 20
     - name: npm install and test
       run: |
-         npm start
+         npm install
          npm test
-#        npm run build
 #        npm run eject
       env:
         CI: true
