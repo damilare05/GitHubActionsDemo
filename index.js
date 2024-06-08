@@ -5,7 +5,7 @@ const app = express();
 
 //responsd with successful for "hello world" for request that hit root"/"
 app.get("/", function (req,res) {
-	return res.send (" Successful!!");
+	return res.send ("Hello world");
 });
 
 // listen to port 7000
