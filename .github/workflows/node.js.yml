@@ -7,7 +7,6 @@ on:
 
 jobs:
   test:
-
     runs-on: ubuntu-latest
 
     strategy:
@@ -15,38 +14,38 @@ jobs:
         node-version: [20]
 
     steps:
-    - uses: actions/checkout@v4
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v3
-      with: 
-        node-version: 20
-    - name: npm install and test
-      run: |
-         npm install
-         npm test
-#        npm run eject
-      env:
-        CI: true
+      - uses: actions/checkout@v4
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20
+      - name: npm install and test
+        run: |
+          npm install
+          npm test
+        #        npm run eject
+        env:
+          CI: true
 
   deploy:
     needs: [test]
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v4
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v3
-      with: 
-        node-version: 20
-    - name: SSH and deploy node app
-      uses: appleboy/ssh-action@master
-      with:
-        host: ${{ secrets.SSH_HOST }}
-        username: ${{ secrets.SSH_USERNAME }}
-        key: ${{ secrets.SSH_KEY }}
-        port: ${{ secrets.SSH_PORT }}
-        script: |
-          cd ~/GitHubActionsDemo
-          git pull origin master
-          npm install --production
-          pm2 restart node-app
+      - uses: actions/checkout@v4
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20
+      - name: SSH and deploy node app
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          key: ${{ secrets.SSH_KEY }}
+          port: ${{ secrets.SSH_PORT }}
+          script: |
+            cd ~/GitHubActionsDemo
+            git pull origin master
+            npm install --production
+            pm2 restart node-app
